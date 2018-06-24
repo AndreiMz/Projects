@@ -1,0 +1,46 @@
+
+<%= link_to 'Back', breweries_path %>
+
+<p><b>Brewery name</b>:
+  <%= @brewery.brewery_name%>
+</p>
+
+<p><b>Website</b>:
+  <a href="<%= @brewery.brewery_website%>"><%= @brewery.brewery_website%></a>
+</p>
+<p><b>Address</b>:
+  <%= @brewery.brewery_full_address%>
+</p>
+<p> <b>Beers</b>:
+<% @beers.each do |br| %>
+  <%= link_to br.beer_name, beer_path(br)%>
+
+<%end%>
+
+<div id="map"></div>
+
+<script>
+  console.log('hi');
+  function initMap() {
+
+    var markers = [];
+    var info_window = null;
+    var br_center = {lat: <%= @brewery.brewery_latitude %>, lng: <%= @brewery.brewery_longitude %>};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: br_center,
+      zoom: 16
+    });
+
+    marker = new google.maps.Marker({
+    position: br_center,
+    map: map
+    });
+     
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVrtzcmMfKSN5Ez8ok6PjJX49c81Uxwec&callback=initMap" async defer></script>
+
+
+</p>
+

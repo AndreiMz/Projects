@@ -1,0 +1,30 @@
+<table class="table table-hover">
+  <thead>
+    <th>Style name</th>
+    <th>Description</th>
+    <th>Alcohol</th>
+    <th>Bitterness</th>
+    <th>Color</th>
+    <th>Link for show</th>
+    <th>Link for edit</th>
+    <th>Link for delete</th>
+  </thead>
+  <tbody>
+  <%@beer_styles.each do |style|%>
+    <tr>
+      <td><%=style.style_name%></td>
+      <td><%=style.description%></td>
+      <td><%=style.alcohol%></td>
+      <td><%=style.bitterness%></td>
+      <td><%=style.color%></td>
+      <td><%=link_to 'Here',beer_style_path(style), class: "btn btn-info"%></td>
+      <td><%=link_to 'Edit',edit_beer_style_path(style), class: "btn btn-default"%></td>
+      <td><%= link_to "delete", style, method: :delete,
+                              data: { confirm: "You sure?" } , class: "btn btn-danger"%></td>
+
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+<%= link_to "Add a new beer style!", new_beer_style_path, class:"btn btn-default", method: "get" %>
+    
