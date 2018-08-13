@@ -1,0 +1,15 @@
+<div class="form-area">  
+          
+  <h3 style="margin-bottom: 25px; text-align: center;">Add a new brewery please !</h3>
+  <%= simple_form_for @brewery do |f| %>
+    
+  <%= f.input :brewery_name  %>
+  <%= f.input :brewery_latitude%>
+  <%= f.input :brewery_longitude %>
+  <%= f.input :brewery_website%>
+  <%= f.input :brewery_full_address %>
+  
+  <%= f.button :submit %>
+  <%end%>
+    
+</div>

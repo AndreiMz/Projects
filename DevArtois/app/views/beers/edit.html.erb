@@ -1,0 +1,21 @@
+<div class="form-area">  
+          
+  <h3 style="margin-bottom: 25px; text-align: center;">Add a new beer</h3>
+  <%= simple_form_for @beer do |f| %>
+    
+    <%= f.input :beer_name  %>
+    <%= f.input :photo %>
+    <%= f.input :description%>
+    <%= select_tag "style", options_from_collection_for_select(@styles, "id", "style_name") %>
+    <% @breweries.each do |br| %>
+        <br>
+      <%= check_box_tag 'beer[breweries][]', br.id, @beer.breweries.exists?(br.id), :id => br.id%>
+      <%=  br.brewery_name%>
+    <%end%>
+    <br>
+    
+
+    <%= f.button :submit %>
+  <%end%>
+
+</div>
