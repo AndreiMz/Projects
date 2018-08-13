@@ -1,0 +1,11 @@
+<h1>Editing Video</h1>
+
+<%= simple_form_for @video do |data| %>
+	<%= data.input :title %>
+	<%= data.input :url %>
+	<%= data.input :duration %>
+	<%= data.select(:channel_id, @channels.collect {|ch| [ch.name, ch.youtube_id]}) -%>
+	<%= data.button :submit %>
+<%end%>
+<%= link_to 'Show', @video %> |
+<%= link_to 'Back', videos_path %>

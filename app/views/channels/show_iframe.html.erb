@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p> Channel Name : <%= @channel.name %> </p>
+<p> Channel URL : <%= @channel.channel_url %> </p>
+<p> Videos : <% @videos.each do |vid| %> 
+	<ul style ="padding:0; list-style-type: none;">
+			<li>
+				<%= (Yt::Video.new id:(vid.youtube_id)).embed_html.html_safe%>
+				
+			</li>
+			<%end%>	
+		</ul>
+			</p>
+<%= will_paginate @videos%>
+<%= link_to 'Back', channels_path %>

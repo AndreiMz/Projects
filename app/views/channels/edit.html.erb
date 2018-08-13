@@ -1,0 +1,10 @@
+<h1>Editing Channel</h1>
+
+<div class = "form-area">
+<%= simple_form_for @channel do |data| %>
+	<%= data.input :name %>
+	<%= data.input :channel_url %>
+	<%= data.button :submit %>
+<%end%>
+<%= link_to 'Back', channels_path %>
+</div>
