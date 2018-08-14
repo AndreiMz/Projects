@@ -15,6 +15,7 @@ gem 'wombat' #for crawling to get videos from channel
 gem 'yt'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'rubocop'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'

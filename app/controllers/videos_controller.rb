@@ -31,11 +31,11 @@ class VideosController < ApplicationController
 	def edit
 		@video = Video.find(params[:id])
 		@channels = Channel.all
-	
+		
 	end
 
 	def destroy
-	 	Video.find(params[:id]).destroy
+		Video.find(params[:id]).destroy
 		flash[:success] = "Video succesfully deleted"
 		redirect_to videos_url
 	end
@@ -48,7 +48,7 @@ class VideosController < ApplicationController
 
 	private
 
-		def video_params
-			params.require(:video).permit(:title,:url,:max_quality,:duration,:channel_id)
-		end
+	def video_params
+		params.require(:video).permit(:title,:url,:max_quality,:duration,:channel_id)
+	end
 end
