@@ -4,8 +4,7 @@
 # also extra show as iframe for the embedded view
 class ChannelsController < ApplicationController
   def index
-    @channels = Channel.all
-    @channels.paginate(page: params[:page], per_page: 10)
+    @channels = Channel.all.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -15,13 +14,11 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params.except(:videos))
-    unless channel_params[:videos]&.nil?
-      channel_params[:videos].each do |vid|
-        @channel.videos.append(Video.find(vid))
-      end
-    end
-    if @channel.save then redirect_to @channel
-    else render 'new'
+    append_vids(channel_params[:videos]) unless channel_params[:videos]&.nil?
+    if @channel.save
+      redirect_to @channel
+    else
+      render 'new'
     end
   end
 
@@ -57,6 +54,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+
+  def append_vids(vids)
+    vids.each { |vid| @channel.videos.append(Video.find(vid)) }
+  end
 
   def channel_params
     params.require(:channel).permit(:name,

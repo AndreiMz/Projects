@@ -2,7 +2,7 @@
 <% Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'%>
 <body>
 	<% if user_signed_in? %>
-	<% @favChannels.each do |ch| %>
+	<% @fav_channels.each do |ch| %>
 	<p><%= ch.name %></p> : <ul>
 		<p> Videos :
 
