@@ -49,7 +49,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: youmimicdev
+  database: youmimic_prod
   pool: 5
-  username: amanzala2
-  password: pass
+  username: youmimic 
+  password: deploypass123!@
