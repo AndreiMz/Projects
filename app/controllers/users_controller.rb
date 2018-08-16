@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     action :authenticate_user! unless user_signed_in?
     @fav_channels = Channel.where(youtube_id: @ids)
     @videos = Video.all.paginate(page: params[:page], per_page: 5)
+    puts @videos.inspect
     render 'index'
   end
 

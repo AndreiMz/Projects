@@ -1,5 +1,5 @@
 
-<% Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'%>
+
 <body>
 	<% if user_signed_in? %>
 	<% @fav_channels.each do |ch| %>
@@ -8,7 +8,8 @@
 
 			<ul style ="padding:0; list-style-type: none;">
 				<% @videos.where(channel_id: ch.id).each do |vid| %>
-				<li >
+				<li>
+					<% Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'%>
 					<%= (Yt::Video.new id:(vid.youtube_id)).embed_html.html_safe%>
 					</li>
 
@@ -18,7 +19,7 @@
 			<%end%>
 		</ul>
 		<%end%>
-		<div id="infinite-scrolling">
+		<div>
 			<%= will_paginate @videos%>
 		</div>
 	</body>

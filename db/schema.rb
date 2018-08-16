@@ -10,6 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+# rubocop:disable Metrics/BlockLength
+# rubocop:disable Style/NumericLiterals
 ActiveRecord::Schema.define(version: 2018_08_10_130155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
@@ -60,3 +62,5 @@ ActiveRecord::Schema.define(version: 2018_08_10_130155) do
     t.index ['channel_id'], name: 'videos_channel_id'
   end
 end
+# rubocop:enable Metrics/BlockLength
+# rubocop:enable Style/NumericLiterals
