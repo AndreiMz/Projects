@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def create_favorite
     if Favorite.exists?(id_channel: params['favorite']['id_channel'],
                         id_user: current_user.id)
+      @message = 'Already in favorites'
       new_favorite
     else
       @preference = Favorite.new(id_channel: params['favorite']['id_channel'],
@@ -38,8 +39,9 @@ class UsersController < ApplicationController
 
   def fetch_favorite_channel_ids
     @ids = []
-    chids = Favorite.where(id_user: current_user.id)
-    chids.each { |ch| @ids << ch['id_channel'] }
+    Favorite.where(id_user: current_user.id).each do |ch|
+      @ids << ch['id_channel']
+    end
     @ids
   end
 

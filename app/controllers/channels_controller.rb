@@ -3,6 +3,7 @@
 # defined CRUD operations for manipulating data from the DB and from the views
 # also extra show as iframe for the embedded view
 class ChannelsController < ApplicationController
+  before_action :authenticate_user!, only: [:create,:new,:edit]
   def index
     @channels = Channel.all.paginate(page: params[:page], per_page: 10)
   end
@@ -14,7 +15,7 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params.except(:videos))
-    append_vids(channel_params[:videos]) unless channel_params[:videos]&.nil?
+    append_vids(channel_params[:videos]) unless channel_params[:videos].nil?
     if @channel.save
       redirect_to @channel
     else
@@ -27,7 +28,7 @@ class ChannelsController < ApplicationController
     if @channel.update(channel_params)
       redirect_to channels_path(@channel)
     else
-      render 'new'
+      render 'edit'
     end
   end
 

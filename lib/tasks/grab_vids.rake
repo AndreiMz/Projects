@@ -1,11 +1,16 @@
 require "#{Rails.root}/app/helpers/poro_helper"
-# include PoroHelper
+include PoroHelper
 
 namespace :grab_vids do
   desc 'Updating data for the db'
   task grab_data: :environment do
     channels = Channel.all
     a = YoutubeFetch.new
+    Yt.configure do |config|
+      config.log_level = :debug
+    end
+    Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'
+
     channels.each do |ch|
       videos_new = a.get_videos_from(ch.youtube_id)
       videos_new.each do |v|

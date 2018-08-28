@@ -1,5 +1,7 @@
 
-
+<%Yt.configure do |config|%>
+  <%config.log_level = :debug%>
+<%end%>
 <body>
 	<% if user_signed_in? %>
 	<% @fav_channels.each do |ch| %>
@@ -11,17 +13,16 @@
 				<li>
 					<% Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'%>
 					<%= (Yt::Video.new id:(vid.youtube_id)).embed_html.html_safe%>
-					</li>
-
-					<%end%>	
-				</ul>
-			</p>
-			<%end%>
-		</ul>
+				</li>
+				<%end%>	
+			</ul>
+		</p>
 		<%end%>
-		<div>
-			<%= will_paginate @videos%>
-		</div>
-	</body>
+	</ul>
+	<%end%>
+	<div>
+		<%= will_paginate @videos%>
+	</div>
+</body>
 
 
