@@ -113,9 +113,11 @@ context 'when logged in' do
 
     describe 'destroy' do 
       it 'redirects to login' do 
-        #to-do it's not working
-        delete :destroy, params: {id:chann.first}
-        expect(response).to redirect_to new_user_session_path
+        chann = double(Channel.new)
+        allow(Channel).to receive(:find).with(an_instance_of(String)).and_return(chann)
+        allow(chann).to receive(:destroy)
+        delete :destroy, params: {id:1}
+        expect(response).to redirect_to channels_path
       end
     end
   end
