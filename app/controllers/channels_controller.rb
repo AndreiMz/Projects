@@ -3,7 +3,8 @@
 # defined CRUD operations for manipulating data from the DB and from the views
 # also extra show as iframe for the embedded view
 class ChannelsController < ApplicationController
-  before_action :authenticate_user!, only: [:create,:new,:edit]
+  before_action :authenticate_user!, only: %i[create new edit destroy]
+
   def index
     @channels = Channel.all.paginate(page: params[:page], per_page: 10)
   end
@@ -14,7 +15,8 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    @channel = Channel.new(channel_params.except(:videos))
+    make_params_from_id(channel_params[:youtube_id])
+    @channel = Channel.new(@new_params)
     append_vids(channel_params[:videos]) unless channel_params[:videos].nil?
     if @channel.save
       redirect_to @channel
@@ -51,7 +53,7 @@ class ChannelsController < ApplicationController
   def show_iframe
     @channel = Channel.find(params[:id])
     @videos = Video.where(channel_id: @channel.id)
-    @videos.paginate(page: params[:page], per_page: 5)
+    @videos = @videos.paginate(page: params[:page], per_page: 5)
   end
 
   private
@@ -65,5 +67,14 @@ class ChannelsController < ApplicationController
                                     :channel_url,
                                     :youtube_id,
                                     videos: [])
+  end
+
+  def make_params_from_id(yt_id)
+    ch = Yt::Channel.new id: yt_id
+    @new_params = {
+      channel_url: 'https://www.youtube.com/' + yt_id,
+      name: ch.title,
+      youtube_id: yt_id
+    }
   end
 end

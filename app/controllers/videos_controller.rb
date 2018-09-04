@@ -11,9 +11,10 @@ class VideosController < ApplicationController
   end
 
   def create
-    @video = Video.new(video_params)
+    make_params_from_id(video_params[:youtube_id])
+    @video = Video.new(@create_params)
     @channels = Channel.all
-    if @video.save!
+    if @video.save
       redirect_to video_path(Video.last)
     else
       render 'new'
@@ -50,8 +51,20 @@ class VideosController < ApplicationController
   def video_params
     params.require(:video).permit(:title,
                                   :url,
-                                  :max_quality,
                                   :duration,
-                                  :channel_id)
+                                  :channel_id,
+                                  :youtube_id)
+  end
+
+  def make_params_from_id(yt_id)
+    vid = Yt::Video.new id: yt_id
+    @create_params = {
+      title: vid.title,
+      url: 'https://www.youtube.com/watch?v=' + yt_id,
+      duration: vid.length,
+      is_hd: vid.hd?,
+      youtube_id: yt_id,
+      channel_id: video_params[:channel_id]
+    }
   end
 end
