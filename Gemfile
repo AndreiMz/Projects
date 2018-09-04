@@ -14,10 +14,11 @@ gem 'postgresql'
 gem 'simple_form'
 gem 'will_paginate'
 gem 'yt'
-
+gem 'factory_bot_rails'
 gem 'material-sass'
 gem 'webpacker'
 gem 'react-rails'
+gem 'faker'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
@@ -60,8 +61,8 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
-  gem "capistrano", require: false
-  gem "capistrano-rails", require: false
+  gem 'capistrano', require: false
+  gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'brakeman'
@@ -80,9 +81,10 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-# rubocop:enable Bundler/OrderedGems
+#rubocop:enable Bundler/OrderedGems
