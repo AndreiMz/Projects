@@ -4,25 +4,33 @@
 <%end%>
 <body>
 	<% if user_signed_in? %>
-	<% @fav_channels.each do |ch| %>
-	<p><%= ch.name %></p> : <ul>
 		<p> Videos :
-
 			<ul style ="padding:0; list-style-type: none;">
-				<% @videos.where(channel_id: ch.id).each do |vid| %>
-				<li>
-					<% Yt.configuration.api_key = 'AIzaSyBHuSdJkeHGWxnCFqqhNrzguLmeXy6UkWg'%>
-					<%= (Yt::Video.new id:(vid.youtube_id)).embed_html.html_safe%>
-				</li>
+				<% @videos.each_slice(5) do |v1,v2,v3,v4,v5| %>
+				<div class='row'>
+					<div class='col-sm'>
+						<%= (Yt::Video.new id:v1.youtube_id).embed_html.html_safe %>
+					</div>
+					<div class='col-sm'>
+						<%= (Yt::Video.new id:v2.youtube_id).embed_html.html_safe %>
+					</div>
+					<div class='col-sm'>
+						<%= (Yt::Video.new id:v3.youtube_id).embed_html.html_safe %>
+					</div>
+					<div class='col-sm'>
+						<%= (Yt::Video.new id:v4.youtube_id).embed_html.html_safe %>
+					</div>
+					<div class='col-sm'>
+						<%= (Yt::Video.new id:v5.youtube_id).embed_html.html_safe %>
+					</div>
+				</div>
 				<%end%>	
 			</ul>
 		</p>
 		<%end%>
-	</ul>
-	<%end%>
 	<div>
 		<%= will_paginate @videos%>
 	</div>
 </body>
 
-
+<% console %>
