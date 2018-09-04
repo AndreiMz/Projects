@@ -20,12 +20,14 @@ module PoroHelper
     end
 
     def youtube_object_to_record(yt_obj)
-      { title: yt_obj.title,
+      {
+        title: yt_obj.title,
         url: 'https://www.youtube.com/watch?v=' + yt_obj.id.to_s,
         duration: yt_obj.length,
         is_hd: yt_obj.hd?,
         channel_id: Channel.where(youtube_id: yt_obj.channel_id).first.id,
-        youtube_id: yt_obj.id }
+        youtube_id: yt_obj.id
+      }
     end
   end
 end
