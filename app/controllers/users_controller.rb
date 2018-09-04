@@ -20,21 +20,21 @@ class UsersController < ApplicationController
   end
 
   def create_favorite
-    @favch = Favorite.new(id_channel: users_params[:id_channel],
-                               id_user: current_user.id)
+    @favch = Favorite.new(channel_id: users_params[:channel_id],
+                          user_id: current_user.id)
     check_save
   end
 
   private
 
   def users_params
-    params.require(:favorite).permit(:id_channel)
+    params.require(:favorite).permit(:channel_id)
   end
 
   def fetch_favorite_channel_ids
     @ids = []
-    Favorite.where(id_user: current_user.id).each do |ch|
-      @ids << ch['id_channel']
+    Favorite.where(user_id: current_user.id).each do |ch|
+      @ids << ch['channel_id']
     end
     @ids
   end
