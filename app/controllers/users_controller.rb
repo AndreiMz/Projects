@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 
   def favorite_page
     action :authenticate_user! unless user_signed_in?
-    @fav_channels = Channel.where(youtube_id: @ids)
-    @videos = Video.all.paginate(page: params[:page], per_page: 5)
-    puts @videos.inspect
+    @fav_channels = Channel.where(id: @ids)
+    @videos = Video.where(channel_id: @ids)
+    @videos = @videos.paginate(page: params[:page], per_page: 10)
     render 'index'
   end
 
@@ -20,21 +20,15 @@ class UsersController < ApplicationController
   end
 
   def create_favorite
-    if Favorite.exists?(id_channel: params['favorite']['id_channel'],
-                        id_user: current_user.id)
-      @message = 'Already in favorites'
-      new_favorite
-    else
-      @preference = Favorite.new(id_channel: params['favorite']['id_channel'],
-                                 id_user: current_user.id)
-      check_save
-    end
+    @favch = Favorite.new(id_channel: users_params[:id_channel],
+                               id_user: current_user.id)
+    check_save
   end
 
   private
 
   def users_params
-    params.require(:users).permit(:id_channel)
+    params.require(:favorite).permit(:id_channel)
   end
 
   def fetch_favorite_channel_ids
@@ -46,10 +40,12 @@ class UsersController < ApplicationController
   end
 
   def check_save
-    if @preference.save!
+    if @favch.save
       redirect_to favorites_path
     else
-      render 'new'
+      @channels = Channel.all
+      @errors = @favch.errors
+      render :new
     end
   end
 end
