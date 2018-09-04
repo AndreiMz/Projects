@@ -1,6 +1,7 @@
 
 <%= if(@message) then @message end%>
+<%= unless(@errors.nil?) then @errors.messages end%>
 <%= simple_form_for @favch do |data| %>
-	<%= data.select(:id_channel, @channels.collect {|ch| [ch.name,ch.youtube_id]}) -%>
+	<%= data.select(:id_channel, @channels.collect {|ch| [ch.name,ch.id]}) -%>
 	<%= data.button :submit %>
 <%end%>

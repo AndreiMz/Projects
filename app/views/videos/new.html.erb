@@ -3,10 +3,8 @@
 <h2> Make sure the data is correct as you cannot edit if you are not logged in</h2>
 <%end%>
 <%= simple_form_for @video do |data| %>
-	<%= data.input :title %>
-	<%= data.input :url %>
-	<%= data.input :duration %>
-	<%= data.select(:channel_id, @channels.collect {|ch| [ch.name, ch.youtube_id]}) -%>
+	<%= data.input :youtube_id %>
+	<%= data.select(:channel_id, @channels.collect {|ch| [ch.name, ch.id]}) -%>
 	<%= data.button :submit %>
 <%end%>
 <%= link_to 'Back', videos_path %>
