@@ -4,10 +4,10 @@
 <p> Channel URL : <%= @channel.channel_url %> </p>
 <p> Videos : <% @videos.where(channel_id: @channel.id).each do |vid| %> 
 	<ul style ="padding:0; list-style-type: none;">
-			<li><%= vid.title%></li>
+			<li><%= link_to vid.title, video_path(vid)%></li>
 			<%end%>	
 		</ul>
-			</p>
+</p>
 
 <%= link_to 'Edit', edit_channel_path(@channel) %> |
 <%= link_to 'Back', channels_path %>
