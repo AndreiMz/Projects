@@ -15,7 +15,11 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    make_params_from_id(channel_params[:youtube_id])
+    if params['channel']['youtube_id'].nil?
+      @new_params = nil
+    else
+      make_params_from_id(channel_params[:youtube_id])
+    end
     @channel = Channel.new(@new_params)
     append_vids(channel_params[:videos]) unless channel_params[:videos].nil?
     if @channel.save
@@ -70,11 +74,15 @@ class ChannelsController < ApplicationController
   end
 
   def make_params_from_id(yt_id)
-    ch = Yt::Channel.new id: yt_id
-    @new_params = {
-      channel_url: 'https://www.youtube.com/' + yt_id,
-      name: ch.title,
-      youtube_id: yt_id
-    }
+    begin
+      ch = Yt::Channel.new id: yt_id
+      @new_params = {
+                      channel_url: 'https://www.youtube.com/' + yt_id,
+                      name: ch.title,
+                      youtube_id: yt_id
+                    }
+    rescue Yt::Errors::NoItems
+      @errors = 'Bad ID given'
+    end
   end
 end
