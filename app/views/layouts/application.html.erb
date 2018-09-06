@@ -67,11 +67,8 @@
       <ul class="navbar-nav pull-right">
         <% if user_signed_in? %>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" value="test">
-              <%= current_user.email %>
-              <i class='material-icons align-middle'>face</i>
-              <span class="caret"></span>
-            </a>
+            <%= current_user.email %>
+            <i class='material-icons align-middle'>face</i>
           </li>
         <% else %>
           <li>
@@ -84,7 +81,7 @@
       </ul>
     </nav>
 
-  <body>
+  <body background="bg-light">
     <%= yield %>
   </body>
   <div class="container">

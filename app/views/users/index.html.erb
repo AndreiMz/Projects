@@ -5,75 +5,24 @@
 <body>
 	<% if user_signed_in? %>
 			<ul style ="padding:0; list-style-type: none;">
-				<% @videos.each_slice(5) do |a,b,c,d,e| %>
-				<% v1 = Yt::Video.new id: a.youtube_id %>
-				<% v2 = Yt::Video.new id: b.youtube_id %>
-				<% v3 = Yt::Video.new id: c.youtube_id %>
-				<% v4 = Yt::Video.new id: d.youtube_id %>
-				<% v5 = Yt::Video.new id: e.youtube_id %>
-				<div class='row'>
-					<div class='col'>
-						<div class='card'>
-							<div class='card-body embed-responsive embed-responsive-16by9'>
-								<%= v1.embed_html.html_safe %>
+				<% @videos.each_slice(5) do |v| %>
+					<div class ='row'>
+						<%v.each do |yt_vid| %>
+						<% yt_obj = Yt::Video.new id: yt_vid.youtube_id %>
+							<div class='col'>
+								<div class='card'>
+									<div class='card-body embed-responsive-16by9 embed-responsive'>
+										<%= yt_obj.embed_html.html_safe %>
+									</div>
+								</div>
+								<div class='card'>
+									<div class='card-body'>
+										<%= yt_obj.description %>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class='card'>
-							<div class='card-body'>
-								<%= v1.description %>
-							</div>
-						</div>
+							<% end %>
 					</div>
-					<div class='col'>
-						<div class='card'>
-							<div class='card-body embed-responsive embed-responsive-16by9'>
-								<%= v2.embed_html.html_safe %>
-							</div>
-						</div>
-						<div class='card'>
-							<div class='card-body'>
-								<%= v2.description %>
-							</div>
-						</div>
-					</div>
-					<div class='col'>
-						<div class='card'>
-							<div class='card-body embed-responsive embed-responsive-16by9'>
-								<%= v3.embed_html.html_safe %>
-							</div>
-						</div>
-						<div class='card'>
-							<div class='card-body'>
-								<%= v3.description %>
-							</div>
-						</div>
-					</div>
-					<div class='col'>
-						<div class='card'>
-							<div class='card-body embed-responsive embed-responsive-16by9'>
-								<%= v4.embed_html.html_safe %>
-							</div>
-						</div>
-						<div class='card'>
-							<div class='card-body'>
-								<%= v4.description %>
-							</div>
-						</div>
-					</div>
-					<div class='col'>
-						<div class='card'>
-							<div class='card-body embed-responsive embed-responsive-16by9'>
-								<%= v5.embed_html.html_safe %>
-							</div>
-						</div>
-						<div class='card'>
-							<div class='card-body'>
-								<%= v5.description %>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br>
 				<%end%>	
 			</ul>
 		<%end%>
