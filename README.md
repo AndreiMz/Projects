@@ -1,10 +1,9 @@
 # README
-
-* Ruby 2.5.1 
-
+* Prerequisites:
+	- Ruby 2.5.1
+	- Rails 5
+	- webpack
 * Installation :
 	- bundle install 
 	- rails s
-
-* Problems :
- - capistrano deploy not working
+	- go to localhost:3000
