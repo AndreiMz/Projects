@@ -12,3 +12,6 @@ Channel.create(name: 'TheFatRat',
 Channel.create(name: 'Delain Music Fan',
                channel_url: 'https://www.youtube.com/channel/UCyPAlczqZ0kGcl-QvVmuG3Q',
                youtube_id: 'UCyPAlczqZ0kGcl-QvVmuG3Q')
+Channel.create(name: 'maui',
+               channel_url: 'https://www.youtube.com/channel/UCQS6MOu1BT_Qq85RGUhg6fg',
+               youtube_id: 'UCQS6MOu1BT_Qq85RGUhg6fg')
