@@ -1,18 +1,16 @@
 <p id="notice"><%= notice %></p>
-
-<h1>
+<h1 class='typography-display-3 text-center'>
   Videos
-  <form action=<%=new_video_path%>>
-    <input type='submit' value='New Video' class='btn btn-primary' align='right'>
-  </form>
 </h1>
-
-<table class='table'>
-  <thead>
+<table class='table table-striped table-bordered'>
+  <thead class='thead-dark'>
     <tr>
       <th scope='col'>#</th>
       <th scope='col'>Video Title</th>
       <th scope='col'>Video URL</th>
+      <th scope='col'>View</th>
+      <th scope='col'>Modify</th>
+      <th scope='col'>Remove</th>
     </tr>
   </thead>
 
@@ -22,14 +20,14 @@
         <td><%= video.id%></td>
         <td><%= video.title%></td>
         <td><%= video.url%></td>
-        <td><%= link_to 'Show', video %></td>
-        <td><%= link_to 'Edit', edit_video_path(video) %></td>
-        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Show', video_path(video), method: :get, class: 'btn btn-info btn-block' %></td>
+        <td><%= button_to 'Edit', edit_video_path(video), method: :get, class: 'btn btn-secondary btn-block' %></td>
+        <td><%= button_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-block' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<%= button_to 'New Video',new_video_path, method: :get, class: 'btn btn-primary btn-block' %>
 <br>
 <%= will_paginate %>
 

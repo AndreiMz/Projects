@@ -2,7 +2,7 @@
 
 <p> Channel Name : <%= @channel.name %> </p>
 <p> Channel URL : <%= @channel.channel_url %> </p>
-<p> Videos : <% @videos.where(channel_id: @channel.id).each do |vid| %> 
+<p> Videos : <% @videos.where(channel_id: @channel.id).each do |vid| %>
 	<ul style ="padding:0; list-style-type: none;">
 			<li><%= link_to vid.title, video_path(vid)%></li>
 			<%end%>	
