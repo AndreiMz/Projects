@@ -50,15 +50,20 @@
             </li>
 
             <% else %>
+            <i class='material-icons align-middle'>recent_actors</i>
 
             <li class="nav-item">
-              <%= button_to 'Channels' , channels_path, method: :get, class: 'btn btn-outline-primary' %>&nbsp
+              <%= link_to 'Channels' , channels_path, class: 'txt-primary' %>&nbsp
             </li>
+
+            <i class='material-icons align-middle'>video_library</i>
             <li class="nav-item">
-              <%= button_to 'Videos' , videos_path, method: :get, class: 'btn btn-outline-primary'%>&nbsp
+              <%= link_to 'Videos' , videos_path, class: 'txt-primary'%>&nbsp
             </li>
+
+            <i class='material-icons align-middle'>folder</i>
             <li class="nav-item">
-              <%= button_to 'Home' , root_path, method: :get, class: 'btn btn-outline-primary'%>&nbsp
+              <%= link_to 'Home' , root_path, class: 'txt-primary'%>&nbsp
             </li>
             <% end %>
           </ul>
@@ -81,7 +86,7 @@
       </ul>
     </nav>
 
-  <body background="bg-light">
+  <body class="bg-light">
     <%= yield %>
   </body>
   <div class="container">
