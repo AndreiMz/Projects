@@ -8,6 +8,7 @@ class VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+    @yt_obj = Yt::Video.new id:@video.youtube_id
   end
 
   def create

@@ -57,7 +57,12 @@ class ChannelsController < ApplicationController
   def show_iframe
     @channel = Channel.find(params[:id])
     @videos = Video.where(channel_id: @channel.id)
-    @videos = @videos.paginate(page: params[:page], per_page: 5)
+    @videos = @videos.paginate(page: params[:page],per_page: 5)
+    @yt_objs = []
+    @videos.each do |v|
+     x = Yt::Video.new id:v.youtube_id
+     @yt_objs << x
+    end
   end
 
   private
