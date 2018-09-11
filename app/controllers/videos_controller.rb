@@ -25,7 +25,7 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     if @video.update(video_params)
-      redirect_to videos_path(@video)
+      redirect_to video_path(@video)
     else
       render 'new'
     end
