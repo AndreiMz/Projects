@@ -93,14 +93,16 @@
 </div>
 <body class="bg-light">
   <div style='padding-top: 3rem'>
-  <%= yield %>
-</div>
+    <%= yield %>
+  </div>
 </body>
 <div class="container">
-  <% flash.each do |key,value| %>
-  <div class="alert alert-<%= key%>">
-   <%= value %>
+  <div class='row justify-content-center'>
+    <% flash.each do |key,value| %>
+    <div class="alert alert-<%= key%>">
+     <%= value %>
+   </div>
+   <% end %>
  </div>
- <% end %>
 </div>
 </html>
