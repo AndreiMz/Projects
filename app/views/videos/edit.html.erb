@@ -1,11 +1,18 @@
-<h1>Editing Video</h1>
 
-<%= simple_form_for @video do |data| %>
-	<%= data.input :title %>
-	<%= data.input :url %>
-	<%= data.input :duration %>
-	<%= data.select(:channel_id, @channels.collect {|ch| [ch.name, ch.youtube_id]}) -%>
-	<%= data.button :submit %>
-<%end%>
-<%= link_to 'Show', @video %> |
-<%= link_to 'Back', videos_path %>
+<div class='row justify-content-center'>
+	<div class='col-6'>
+		<h1 style='text-align: center'>Editing Video</h1>
+		<div class='form-group'>
+			<%= simple_form_for @video do |data| %>
+			<%= data.input :title, input_html: {class: 'form-control'}%>
+			<%= data.input :url, input_html: {class: 'form-control'}%>
+			<%= data.input :duration, input_html: {class: 'form-control'}%>
+			<br>
+			<%= data.select(:channel_id, @channels.collect {|ch| [ch.name, ch.youtube_id]},{},{class: 'form-control'}) -%>
+			<br>
+			<%= data.button :submit, class: 'btn btn-primary btn-block' %>
+			<%end%>
+		</div>
+		<%= button_to 'Back', videos_path, method: :get, class: 'btn btn-danger btn-block' %>
+	</div>
+</div>

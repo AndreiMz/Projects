@@ -1,12 +1,11 @@
-<div class='container'>
-  <%=@videos.each_slice(2) do |v1,v2| %>
-	<div class='row' align='left'>
-		<div class='col embed-responsive embed-responsive-16by9'>
-			<%= v1.embed_html.html_safe%>
-		</div>
-		<div class='col embed-responsive embed-responsive-16by9'>
-			<%= v2.embed_html.html_safe%>
-		</div>
+<div class='owl-carousel'>
+	<div class='embed-responsive embed-responsive-16by9'>
+		<%= @videos[0].embed_html.html_safe %>
 	</div>
-  <%end%>	
+	<div class='embed-responsive embed-responsive-16by9'>
+		<%= @videos[1].embed_html.html_safe %>
+	</div>
+	<div class='embed-responsive embed-responsive-16by9'>
+		<%= @videos[2].embed_html.html_safe %>
+	</div>
 </div>

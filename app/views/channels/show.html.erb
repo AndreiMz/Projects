@@ -1,13 +1,22 @@
 <p id="notice"><%= notice %></p>
+<div class='row justify-content-center'>
+	<div class='col-6' align='center'>
+		<div class='card'>
+			<div class='card-title'>
+				<p> Channel Name : <%= @channel.name %> </p>
+				<p> Channel URL : <%= @channel.channel_url %> </p>
+			</div>
+			<div class='card-body'>
+				<% @videos.where(channel_id: @channel.id).each do |vid| %>
+				<ul style ="padding:0; list-style-type: none;">
+					<li><%= link_to vid.title, video_path(vid)%></li>
+					<%end%>	
+				</ul>
+			</div>
+		</div>
+		<%= button_to 'Edit', edit_channel_path(@channel), class: 'btn btn-secondary btn-block' %> 
+		<br>
+		<%= button_to 'Back', channels_path, class: 'btn btn-info btn-block' %>
+	</div>
+</div> 
 
-<p> Channel Name : <%= @channel.name %> </p>
-<p> Channel URL : <%= @channel.channel_url %> </p>
-<p> Videos : <% @videos.where(channel_id: @channel.id).each do |vid| %>
-	<ul style ="padding:0; list-style-type: none;">
-			<li><%= link_to vid.title, video_path(vid)%></li>
-			<%end%>	
-		</ul>
-</p>
-
-<%= link_to 'Edit', edit_channel_path(@channel) %> |
-<%= link_to 'Back', channels_path %>

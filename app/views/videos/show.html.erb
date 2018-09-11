@@ -21,7 +21,7 @@
 	<div class='col'>
 		<div class='card' style='width: 32rem'>
 			<div class='embed-resposive embed-responsive-16by9 card-body'>
-			 <%= (Yt::Video.new id:@video.youtube_id).embed_html.html_safe%>
+			 <%= @yt_obj.embed_html.html_safe%>
 			 <div align='center'>
 				 <%= button_to 'Edit', edit_video_path(@video), method: :get, class: 'btn btn-primary btn-block' %>
 				 <br>

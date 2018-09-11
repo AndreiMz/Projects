@@ -1,99 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>YouMimic</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>YouMimic</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel='shortcut icon' href=<%=image_path('favico.png')%> >
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-  <%= yield :top_content %>
-  <div class="container">
-    <h1><%= yield :header%></h1>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel='shortcut icon' href=<%=image_path('favico.png')%> >
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<%= yield :top_content %>
+<div class="container">
+  <h1><%= yield :header%></h1>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav mr-2">
+      <% if user_signed_in? %>
+      <i class='material-icons align-middle'>recent_actors</i>
+
+      <li class="nav-item">
+        <%= link_to 'Channels Table',channels_path, class: 'txt-primary' %>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>video_library</i>
+      <li class="nav-item">
+        <%= link_to 'Videos Table', videos_path, class: 'txt-primary' %>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>folder</i>
+      <li class="nav-item">
+        <%= link_to 'Home' , root_path, class: 'txt-primary' %>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>mood_bad</i>
+      <li class="nav-item">
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'txt-primary' %>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>thumb_up_alt</i>
+      <li class="nav-item">
+        <%= link_to 'Favorites', favorites_path, class: 'txt-primary'%>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>create</i>
+      <li class="nav-item">
+        <%= link_to 'New Favorite',new_favorite_path, class: 'txt-primary'%>&nbsp
+      </li>
+
+      <% else %>
+      <i class='material-icons align-middle'>recent_actors</i>
+
+      <li class="nav-item">
+        <%= link_to 'Channels' , channels_path, class: 'txt-primary' %>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>video_library</i>
+      <li class="nav-item">
+        <%= link_to 'Videos' , videos_path, class: 'txt-primary'%>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>folder</i>
+      <li class="nav-item">
+        <%= link_to 'Home' , root_path, class: 'txt-primary'%>&nbsp
+      </li>
+      <% end %>
+    </ul>
   </div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="nav navbar-nav mr-2">
-            <% if user_signed_in? %>
-            <i class='material-icons align-middle'>recent_actors</i>
+  <ul class="navbar-nav pull-right">
+    <% if user_signed_in? %>
+    <li class="dropdown">
+      <%= current_user.email %>
+      <i class='material-icons align-middle'>face</i>
+    </li>
+    <% else %>
 
-            <li class="nav-item">
-              <%= link_to 'Channels Table',channels_path, class: 'txt-primary' %>&nbsp
-            </li>
+    <i class='material-icons align-middle'>input</i>&nbsp
+    <li>
+      <%= link_to 'Log In', new_user_session_path, method: :get, class: 'txt-primary' %>&nbsp
+    </li>
 
-            <i class='material-icons align-middle'>video_library</i>
-            <li class="nav-item">
-              <%= link_to 'Videos Table', videos_path, class: 'txt-primary' %>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>folder</i>
-            <li class="nav-item">
-              <%= link_to 'Home' , root_path, class: 'txt-primary' %>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>mood_bad</i>
-            <li class="nav-item">
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'txt-primary' %>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>thumb_up_alt</i>
-            <li class="nav-item">
-              <%= link_to 'Favorites', favorites_path, class: 'txt-primary'%>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>create</i>
-            <li class="nav-item">
-              <%= link_to 'New Favorite',new_favorite_path, class: 'txt-primary'%>&nbsp
-            </li>
-
-            <% else %>
-            <i class='material-icons align-middle'>recent_actors</i>
-
-            <li class="nav-item">
-              <%= link_to 'Channels' , channels_path, class: 'txt-primary' %>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>video_library</i>
-            <li class="nav-item">
-              <%= link_to 'Videos' , videos_path, class: 'txt-primary'%>&nbsp
-            </li>
-
-            <i class='material-icons align-middle'>folder</i>
-            <li class="nav-item">
-              <%= link_to 'Home' , root_path, class: 'txt-primary'%>&nbsp
-            </li>
-            <% end %>
-          </ul>
-
-    </div>
-      <ul class="navbar-nav pull-right">
-        <% if user_signed_in? %>
-          <li class="dropdown">
-            <%= current_user.email %>
-            <i class='material-icons align-middle'>face</i>
-          </li>
-        <% else %>
-          <li>
-            <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-outline-primary' %>&nbsp
-          </li>
-          <li>
-            <%= button_to 'Sign Up', new_user_registration_path, method: :get, class: 'btn btn-outline-primary' %>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-
-  <body class="bg-light">
-    <%= yield %>
-  </body>
-  <div class="container">
+    <i class='material-icons align-middle'>perm_identity</i>
+    <li>
+      <%= link_to 'Sign Up', new_user_registration_path, method: :get, class: 'txt-primary' %>
+    </li>
+    <% end %>
+  </ul>
+</nav>
+<div class='progress'>
+  <div class='progress-bar bg-danger' style='width: 100%'aria-valuenow='100' aria-valuemin='100' aria-valumemax='100'></div>
+</div>
+<body class="bg-light">
+  <div style='padding-top: 3rem'>
+  <%= yield %>
+</div>
+</body>
+<div class="container">
   <% flash.each do |key,value| %>
-    <div class="alert alert-<%= key%>">
-       <%= value %>
-     </div>
-  <% end %>
-  </div>
+  <div class="alert alert-<%= key%>">
+   <%= value %>
+ </div>
+ <% end %>
+</div>
 </html>
