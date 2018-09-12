@@ -1,11 +1,10 @@
-<div class='owl-carousel'>
-	<div class='embed-responsive embed-responsive-16by9'>
-		<%= @videos[0].embed_html.html_safe %>
+<% @videos.each_slice(3) do |yt| %>
+<div class='row'>
+	<% yt.each do |vid| %>
+	<div class='col embed-responsive embed-responsive-16by9'>
+		<%= vid.embed_html.html_safe %>
 	</div>
-	<div class='embed-responsive embed-responsive-16by9'>
-		<%= @videos[1].embed_html.html_safe %>
-	</div>
-	<div class='embed-responsive embed-responsive-16by9'>
-		<%= @videos[2].embed_html.html_safe %>
-	</div>
+	<%end%>
 </div>
+<%end%>
+<%console%>

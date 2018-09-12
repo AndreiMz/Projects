@@ -3,8 +3,8 @@
 	<div class='col-6' align='center'>
 		<div class='card'>
 			<div class='card-title'>
-				<p> Channel Name : <%= @channel.name %> </p>
-				<p> Channel URL : <%= @channel.channel_url %> </p>
+				<p style='padding-top: 2rem'> Channel Name : <%= @channel.name %> </p>
+				<p> Channel URL :<a href=<%=@channel.channel_url%>> <%= @channel.channel_url %></a> </p>
 			</div>
 			<div class='card-body'>
 				<% @videos.where(channel_id: @channel.id).each do |vid| %>
@@ -14,9 +14,9 @@
 				</ul>
 			</div>
 		</div>
-		<%= button_to 'Edit', edit_channel_path(@channel), class: 'btn btn-secondary btn-block' %> 
+		<%= button_to 'Edit', edit_channel_path(@channel),method: :get, class: 'btn btn-secondary btn-block' %>
 		<br>
-		<%= button_to 'Back', channels_path, class: 'btn btn-info btn-block' %>
+		<%= button_to 'Back', channels_path, method: :get, class: 'btn btn-info btn-block' %>
 	</div>
 </div> 
 

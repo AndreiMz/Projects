@@ -1,7 +1,13 @@
-
-<%= if(@message) then @message end%>
-<%= unless(@errors.nil?) then @errors.messages end%>
-<%= simple_form_for @favch do |data| %>
-	<%= data.select(:channel_id, @channels.collect {|ch| [ch.name,ch.id]}) -%>
-	<%= data.button :submit %>
-<%end%>
+<div class='row justify-content-center'>
+	<div class='col-6'>
+		<%= if(@message) then @message end%>
+		<%= unless(@errors.nil?) then @errors.messages end%>
+		<div class='form-group'>
+			<%= simple_form_for @favch do |data| %>
+			<%= data.select(:channel_id, @channels.collect {|ch| [ch.name,ch.id]},{},{class: 'form-control'}) -%>
+			<br>
+			<%= data.button :submit, class: 'btn btn-primary btn-block' %>
+			<%end%>
+		</div>
+	</div>
+</div>
