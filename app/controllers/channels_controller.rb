@@ -15,12 +15,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    if params['channel']['youtube_id'].nil?
-      @new_params = nil
-    else
-      make_params_from_id(channel_params[:youtube_id])
-    end
-    @channel = Channel.new(@new_params)
+    @channel = Channel.new(youtube_id: channel_params[:youtube_id])
     append_vids(channel_params[:videos]) unless channel_params[:videos].nil?
     if @channel.save
       redirect_to @channel
@@ -51,17 +46,17 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
-    @videos = Video.all
+    @videos = Video.where(channel_id: @channel.id)
+    @videos = @videos.paginate(page: params[:page], per_page:40)
   end
 
   def show_iframe
     @channel = Channel.find(params[:id])
-    @videos = Video.where(channel_id: @channel.id)
-    @videos = @videos.paginate(page: params[:page],per_page: 5)
+    @videos = @channel.videos.paginate(page: params[:page], per_page: 5)
     @yt_objs = []
     @videos.each do |v|
-     x = Yt::Video.new id:v.youtube_id
-     @yt_objs << x
+      x = Yt::Video.new id: v.youtube_id
+      @yt_objs << x
     end
   end
 
@@ -76,18 +71,5 @@ class ChannelsController < ApplicationController
                                     :channel_url,
                                     :youtube_id,
                                     videos: [])
-  end
-
-  def make_params_from_id(yt_id)
-    begin
-      ch = Yt::Channel.new id: yt_id
-      @new_params = {
-                      channel_url: 'https://www.youtube.com/' + yt_id,
-                      name: ch.title,
-                      youtube_id: yt_id
-                    }
-    rescue Yt::Errors::NoItems
-      @errors = 'Bad ID given'
-    end
   end
 end

@@ -4,7 +4,7 @@
 class HomeController < ApplicationController
   def index
     if Video.count > 6
-      rands = (1..Video.last.id).sort{ rand() - 0.5 }[0..5]
+      rands = Video.order("RANDOM()").limit(6).ids
       @videos = []
       rands.each do |t|
         begin
