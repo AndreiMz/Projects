@@ -4,7 +4,7 @@
 class HomeController < ApplicationController
   def index
     if Video.count > 6
-      rands = Video.order("RANDOM()").limit(6).ids
+      rands = Video.order(Arel.sql("RANDOM()")).limit(6).ids
       @videos = []
       rands.each do |t|
         begin
