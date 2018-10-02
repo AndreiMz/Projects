@@ -1,7 +1,5 @@
 
-<%= @errors unless @errors.nil? %>
 <div class='row justify-content-center'>
-
 	<div class='col-6'>
 		<h1 style='text-align: center' >New Channel</h1>
 		<div class = "form-group">
@@ -12,6 +10,10 @@
 			<%end%>
 			<br>
 			<%= button_to 'Back', channels_path, method: :get, class: 'btn btn-danger btn-block' %>
+			<br>
+			<div class='text-danger text-center font-weight-bold'>
+				<%= @errors unless @errors.nil? %>
+			</div>
 		</div>
 	</div>
 </div>

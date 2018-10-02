@@ -4,8 +4,8 @@
 	<div class='col-6' align='center'>
 		<div class='card'>
 			<div class='card-title'>
-				<p> Channel Name : <%= @channel.name %> </p>
-				<p> Channel URL : <%= @channel.channel_url %> </p>
+				<p style='padding-top: 2rem'> Channel Name : <%= @channel.name %> </p>
+				<p> Channel URL :<a href=<%=@channel.channel_url%>> <%= @channel.channel_url %></a> </p>
 			</div>
 			<div class='card-body'>
 				<p> Videos : <% @yt_objs.each do |vid| %>
@@ -16,9 +16,12 @@
 						<%end%>	
 					</ul>
 				</p>
+				<%= button_to 'Back', channels_path, method: :get, class: 'btn btn-danger btn-block' %>
 			</div>
 		</div>
 	</div>
 </div>
-<%= will_paginate @videos%>
-<%= link_to 'Back', channels_path %>
+<div class='row justify-content-center'>
+	<%= will_paginate @videos%>
+</div>
+
