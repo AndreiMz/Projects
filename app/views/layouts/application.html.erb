@@ -34,19 +34,24 @@
         <%= link_to 'Home' , root_path, class: 'txt-primary' %>&nbsp
       </li>
 
-      <i class='material-icons align-middle'>mood_bad</i>
+      <i class='material-icons align-middle'>favorite</i>
       <li class="nav-item">
-        <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'txt-primary' %>&nbsp
-      </li>
-
-      <i class='material-icons align-middle'>thumb_up_alt</i>
-      <li class="nav-item">
-        <%= link_to 'Favorites', favorites_path, class: 'txt-primary'%>&nbsp
+        <%= link_to 'My Favorites', favorites_path(current_user.username), class: 'txt-primary'%>&nbsp
       </li>
 
       <i class='material-icons align-middle'>create</i>
       <li class="nav-item">
-        <%= link_to 'New Favorite',new_favorite_path, class: 'txt-primary'%>&nbsp
+        <%= link_to 'New Favorite',new_favorite_path(current_user.username), class: 'txt-primary'%>&nbsp
+      </li>
+
+      <i class='material-icons align-middle'>filter_list</i>
+      <li class="nav-item">
+        <%= link_to 'Edit Favorites',edit_my_favorites_path(current_user.username), class: 'txt-primary'%>&nbsp
+      </li>
+
+      <li class='nav-item'>
+        <i class='material-icons align-middle'>face</i>
+        <%= link_to 'All favorites', favlist_path, class: 'txt-primary'%>
       </li>
 
       <% else %>
@@ -65,15 +70,36 @@
       <li class="nav-item">
         <%= link_to 'Home' , root_path, class: 'txt-primary'%>&nbsp
       </li>
+
+      <li class='nav-item'>
+        <i class='material-icons align-middle'>face</i>
+        <%= link_to favlist_path, class: 'txt-primary'%>
+      </li>
+
       <% end %>
     </ul>
   </div>
   <ul class="navbar-nav pull-right">
     <% if user_signed_in? %>
-    <li class="dropdown">
-      <%= current_user.email %>
-      <i class='material-icons align-middle'>face</i>
+
+    <i class='material-icons align-middle'>mood_bad</i>
+    <li class="nav-item">
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'txt-primary' %>&nbsp
     </li>
+
+    <li class='nav-item'>
+      <i class='material-icons align-middle'>create</i>
+      <%= link_to 'Edit Account', edit_user_registration_path, class: 'txt-primary'%> &nbsp
+    </li>
+
+    <li class="nav-item">
+      <i class='material-icons align-middle'>face</i>
+      <%= link_to current_user.username, profile_path(current_user.username) %>
+      
+    </li>
+
+
+
     <% else %>
 
     <i class='material-icons align-middle'>input</i>&nbsp
@@ -100,7 +126,7 @@
   <div class='row justify-content-center'>
     <% flash.each do |key,value| %>
     <div class="alert alert-<%= key%>">
-     <%= value %>
+     <h2><%= value %></h2>
    </div>
    <% end %>
  </div>

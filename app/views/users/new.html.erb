@@ -1,7 +1,11 @@
 <div class='row justify-content-center'>
 	<div class='col-6'>
 		<%= if(@message) then @message end%>
-		<%= unless(@errors.nil?) then @errors.messages end%>
+		<% if !@errors.nil? %>
+		<% @errors.full_messages.each do |msg| %>
+		<p> <%= msg %> </p>
+		<% end %>
+		<% end %>
 		<div class='form-group'>
 			<%= simple_form_for @favch do |data| %>
 			<%= data.select(:channel_id, @channels.collect {|ch| [ch.name,ch.id]},{},{class: 'form-control'}) -%>
