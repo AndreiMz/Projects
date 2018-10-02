@@ -1,0 +1,52 @@
+
+
+<div class='row justify-content-center'>
+	<div class='col-6'>
+		<%= if(@message) then @message end%>
+		<% if !@errors.nil? %>
+		<% @errors.full_messages.each do |msg| %>
+		<p> <%= msg %> </p>
+		<% end %>
+		<% end %>
+		<div class='form-group'>
+			<%= simple_form_for @favorite do |data| %>
+				<%= data.input :video_id, collection: @v, input_html: {class: 'form-control'},label_method: :second, value_method: :first %>
+<!-- 			  <%= data.input :video_id, as: :autocomplete, source: @v, input_html: {class: 'form-control'}%>
+ -->			  <br>
+			  <%= data.input :channel_id, input_html: {class: 'form-control'}%>
+			  <br>
+			  <%= data.button :submit, class: 'btn btn-block btn-info' %>
+			<%end%>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	var vinput = $('#favorite_video_id');
+	var chinput = $('#favorite_channel_id');
+
+	vinput.change(function(){
+		if($(this).val() != ""){
+			chinput.val("");
+			chinput.prop('placeholder','Add either a single video or whole channel');
+			chinput.prop('disabled',true);
+		}
+		else{
+			chinput.prop('placeholder','');
+			chinput.prop('disabled',false);
+		}
+	});
+
+	chinput.change(function(){
+		if($(this).val() != ""){
+			vinput.val("");
+			vinput.prop('placeholder','Add either a single video or whole channel');
+			vinput.prop('disabled',true);
+		}
+		else{
+			vinput.prop('placeholder','');
+			vinput.prop('disabled',false);
+		}
+	});
+</script>

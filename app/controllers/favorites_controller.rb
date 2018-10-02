@@ -4,32 +4,42 @@
 # so that only them can view favorite channels
 class FavoritesController < ApplicationController
   before_action :check_user
-  autocomplete :video, :title, full: true
-
+  
   def autocomplete_videos
     @videos = Video.all
     respond_to do |format|
       format.json { render json: @videos.to_json }
     end
   end
+
   def index
     action :authenticate_user! unless user_signed_in?
-    ids = Favorite.where(user_id: current_user.id).pluck('channel_id')
-    @fav_channels = Channel.where(id: ids)
-    @vids = Video.pluck(:title,:id)
-    @videos = Video.where(channel_id: ids)
+    vdids = Favorite.where(user_id: current_user.id).pluck(:video_id)
+    chids = Favorite.where(user_id: current_user.id).pluck(:channel_id)
+    @videos = Video.where(channel_id: chids).or(Video.where(id: vdids))
     @videos = @videos.paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html
-      format.json {render json:@vids}
+      format.json {render json:@videos}
     end
   end
 
+  def list
+    @all_favs = Hash.new
+    User.where.not(id: current_user.id).each do |u|
+      @all_favs[u.id] = Favorite.where(user_id: u.id)
+    end
+  end
+
+  def view
+    @user_favs = Video.where(channel_id: Favorite.where(user_id: params[:uid]).pluck(:channel_id)).or(
+                 Video.where(id: Favorite.where(user_id: params[:uid]).pluck(:video_id))).
+                 paginate(page: params[:page], per_page: 10)
+  end
+
   def new
-    @favch = Favorite.new
-    @channels = Channel.all
-    @videos = Video.all
-    @vids = Video.pluck(:title,:id)
+    @favorite = Favorite.new
+    @v = Video.pluck(:id,:title)
     render 'new'
   end
 
@@ -43,7 +53,8 @@ class FavoritesController < ApplicationController
   end
 
   def create
-    @favch = Favorite.new(channel_id: users_params[:channel_id],
+    puts params[:video_id]
+    @favorite = Favorite.new(channel_id: users_params[:channel_id],
                           video_id: users_params[:video_id],
                           user_id: current_user.id)
     check_save
@@ -52,22 +63,24 @@ class FavoritesController < ApplicationController
   private
 
   def users_params
-    params.require(:favorite).permit(:channel_id)
+    params.require(:favorite).permit(:channel_id, :video_title, :video_id, :uid)
   end
 
   def check_user
-    unless current_user.username == params[:username]
-      flash[:notice] = 'You cannot modify other user\'s favorites'
-      redirect_to root_url
+    unless params[:username].nil?
+      unless current_user.username == params[:username]
+        flash[:notice] = 'You cannot modify other user\'s favorites'
+        redirect_to root_url
+      end
     end
   end
 
   def check_save
-    if @favch.save
+    unless @favorite.errors.any?
       redirect_to favorites_path
     else
       @channels = Channel.all
-      @errors = @favch.errors
+      @errors = @favorite.errors
       render :new
     end
   end

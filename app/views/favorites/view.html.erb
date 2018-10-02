@@ -1,0 +1,30 @@
+<body>
+	<% if @user_favs.empty? %>
+	<h1 style='text-align: center'> It seems this user hasn't added any videos yet </h1>
+	<% end %>
+	<ul style ="padding:0; list-style-type: none;">
+		<% @user_favs.each_slice(5) do |v| %>
+		<div class ='row'>
+			<% v.each do |yt_vid| %>
+			<% yt_obj = Yt::Video.new id: yt_vid.youtube_id %>
+			<div class='col'>
+				<div class='card'>
+					<div class='card-body embed-responsive-16by9 embed-responsive'>
+						<%= yt_obj.embed_html.html_safe %>
+					</div>
+				</div>
+				<div class='card'>
+					<div class='card-body'>
+						<%= simple_format(yt_obj.description).gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+		</div>
+		<%end%>	
+	</ul>
+<div class='row justify-content-center'>
+	<%= will_paginate @user_favs%>
+</div>
+
+</body>

@@ -1,0 +1,19 @@
+<table class='table table-striped table-bordered'>
+  <thead class='thead-dark'>
+    <tr>
+      <th scope='col'>Channel Name</th>
+      <th scope='col'>Video Name</th>
+      <th scope='col'>Remove Favorite</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @favs.each do |f| %>
+      <tr>
+        <td><%= unless f.channel_id.blank? then Channel.find(f.channel_id).name end %></td>
+        <td><%= unless f.video_id.blank? then Video.find(f.video_id).title end%></td>
+        <td><%= button_to 'Destroy', favorites_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-block' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
